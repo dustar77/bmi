@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BMI Calculator</h1>
+        <p>
+            <label for="height">Height (cm):</label><br>
+            <input type="number" id="height" placeholder="Enter height in cm">
+        </p>
+        <p>
+            <label for="weight">Weight (kg):</label><br>
+            <input type="number" id="weight" placeholder="Enter weight in kg">
+        </p>
+        <button onclick="calculateBMI()">Calculate BMI</button>
+        <h2 id="result"></h2>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const heightInput = document.getElementById('height').value;
+            const weightInput = document.getElementById('weight').value;
+
+            if (!heightInput || !weightInput) {
+                alert('Please enter both height and weight.');
+                return;
+            }
+
+            const height = parseFloat(heightInput) / 100; // Convert cm to meters
+            const weight = parseFloat(weightInput);
+
+            const bmi = weight / (height * height);
+            const roundedBMI = bmi.toFixed(2);
+
+            let status;
+            if (bmi < 18.5) {
+                status = 'Underweight';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                status = 'Normal weight';
+            } else if (bmi >= 25 && bmi < 29.9) {
+                status = 'Overweight';
+            } else {
+                status = 'Obesity';
+            }
+
+            document.getElementById('result').innerText = `Your BMI: ${roundedBMI}`;
+            document.getElementById('status').innerText = `Weight Status: ${status}`;
+        }
+    </script>
+</body>
+</html>
